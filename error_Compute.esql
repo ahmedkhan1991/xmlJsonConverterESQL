@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE error_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+
+		SET OutputRoot.JSON.Data.Error = 'Error Parsing Data';
+		
+		RETURN TRUE;
+	END;
+
+
+END MODULE;

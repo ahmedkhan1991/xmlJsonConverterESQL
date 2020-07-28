@@ -1,0 +1,28 @@
+
+
+CREATE COMPUTE MODULE postConverter_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		DECLARE XMLInput Character;
+		DECLARE JSONInput CHARACTER;
+		--This statement will convert the XML or JSON tree to string. 
+		SET XMLInput = COALESCE( CAST(ASBITSTREAM(InputRoot.XMLNSC CCSID 1208) as CHAR CCSID 1208), '');
+		SET JSONInput = COALESCE( CAST(ASBITSTREAM(InputRoot.JSON.Data CCSID 1208) as CHAR CCSID 1208), '');		
+		
+		-- If XML is valid then will be converted to JSON
+		if XMLInput <> '' then
+			SET OutputRoot.JSON.Data = InputRoot.XMLNSC;
+		end if;
+		
+		-- If JSON is valid then will be converted to XML
+		if JSONInput <> '' then
+			SET OutputRoot.XMLNSC.Root = InputRoot.JSON.Data;
+		end if;		
+		
+		
+		RETURN TRUE;
+	END;
+
+
+END MODULE;

@@ -1,0 +1,13 @@
+
+
+CREATE COMPUTE MODULE headerError_Compute
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		
+		SET OutputRoot.JSON.Data.Error = 'Content-Type Not present in request header';
+		
+		RETURN TRUE;
+	END;
+
+
+END MODULE;
